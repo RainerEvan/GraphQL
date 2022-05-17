@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import java.util.UUID;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -7,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.example.demo.utils.BookNoGenerator;
@@ -28,16 +29,9 @@ import lombok.NoArgsConstructor;
 public class Book{
     
     @Id
-    @SequenceGenerator(
-        name = "book_sequence",
-        sequenceName = "book_sequence",
-        allocationSize = 1
-    )
-    @GeneratedValue(
-        strategy = GenerationType.SEQUENCE,
-        generator = "book_sequence"
-    )
-    private Long id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    private UUID id;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "book_seq")

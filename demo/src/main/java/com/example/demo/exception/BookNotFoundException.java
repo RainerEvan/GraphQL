@@ -3,6 +3,7 @@ package com.example.demo.exception;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import graphql.ErrorType;
 import graphql.GraphQLError;
@@ -12,7 +13,7 @@ public class BookNotFoundException extends RuntimeException implements GraphQLEr
 
     private Map<String,Object> extensions = new HashMap<>();
 
-    public BookNotFoundException(String message, Long bookId){
+    public BookNotFoundException(String message, UUID bookId){
         super(message);
         extensions.put("invalid book id: ", bookId);
     }

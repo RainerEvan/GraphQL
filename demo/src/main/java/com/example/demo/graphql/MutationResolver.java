@@ -1,5 +1,7 @@
 package com.example.demo.graphql;
 
+import java.util.UUID;
+
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
 import com.example.demo.exception.BookNotFoundException;
 import com.example.demo.model.Author;
@@ -29,7 +31,7 @@ public class MutationResolver implements GraphQLMutationResolver{
         return bookRepository.save(book);
     }
 
-    public Book editBook(Long id, String name){
+    public Book editBook(UUID id, String name){
         Book book = bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException("Book with current id is not found: ", id));
 
         if(book!=null && name!=null){
@@ -39,7 +41,7 @@ public class MutationResolver implements GraphQLMutationResolver{
         return bookRepository.save(book);
     }
 
-    public Boolean deleteBook(Long id){
+    public Boolean deleteBook(UUID id){
         boolean exist = bookRepository.existsById(id);
 
         if(!exist){
