@@ -16,21 +16,20 @@ import org.hibernate.type.Type;
 public class BookNoGenerator extends SequenceStyleGenerator {
 
     public static final String DATE_FORMAT_PARAMETER = "dateFormat";
-    public static final String DATE_FORMAT_DEFAULT = "%td%tm%td";
+    public static final String DATE_FORMAT_DEFAULT = "T%ty%tm%td";
      
     public static final String NUMBER_FORMAT_PARAMETER = "numberFormat";
-    public static final String NUMBER_FORMAT_DEFAULT = "%d";
+    public static final String NUMBER_FORMAT_DEFAULT = "%03d";
      
     public static final String DATE_NUMBER_SEPARATOR_PARAMETER = "dateNumberSeparator";
-    public static final String DATE_NUMBER_SEPARATOR_DEFAULT = "_";
+    public static final String DATE_NUMBER_SEPARATOR_DEFAULT = "-";
      
     private String format;
 
     @Override
-    public void configure(Type type, Properties params,
-            ServiceRegistry serviceRegistry) throws MappingException {
+    public void configure(Type type, Properties params, ServiceRegistry serviceRegistry) throws MappingException {
         super.configure(LongType.INSTANCE, params, serviceRegistry);
- 
+
         String dateFormat = ConfigurationHelper.getString(DATE_FORMAT_PARAMETER, params, DATE_FORMAT_DEFAULT); 
         String numberFormat = ConfigurationHelper.getString(NUMBER_FORMAT_PARAMETER, params, NUMBER_FORMAT_DEFAULT); 
         String dateNumberSeparator = ConfigurationHelper.getString(DATE_NUMBER_SEPARATOR_PARAMETER, params, DATE_NUMBER_SEPARATOR_DEFAULT); 

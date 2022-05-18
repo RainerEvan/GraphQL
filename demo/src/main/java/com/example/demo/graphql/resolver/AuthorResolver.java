@@ -13,7 +13,7 @@ import lombok.AllArgsConstructor;
 
 @Component
 @AllArgsConstructor
-public class BookResolver implements GraphQLResolver<Book>{
+public class AuthorResolver implements GraphQLResolver<Book>{
 
     @Autowired
     private final AuthorRepository authorRepository;

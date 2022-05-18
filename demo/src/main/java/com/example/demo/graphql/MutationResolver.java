@@ -1,11 +1,13 @@
 package com.example.demo.graphql;
 
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
 import com.example.demo.exception.BookNotFoundException;
 import com.example.demo.model.Author;
 import com.example.demo.model.Book;
+import com.example.demo.model.BookId;
 import com.example.demo.repository.AuthorRepository;
 import com.example.demo.repository.BookRepository;
 
@@ -23,11 +25,12 @@ public class MutationResolver implements GraphQLMutationResolver{
     @Autowired
     private final AuthorRepository authorRepository;
 
-    public Book addBook(String name, Long authorId){
+    public Book addBook(String name, UUID authorId){
         Book book = new Book();
         book.setName(name);
         Author author = authorRepository.findById(authorId).orElseThrow(() -> new IllegalStateException("Author not found"));
         book.setAuthor(author);
+        book.setDateAdded(OffsetDateTime.now());
         return bookRepository.save(book);
     }
 
@@ -42,13 +45,14 @@ public class MutationResolver implements GraphQLMutationResolver{
     }
 
     public Boolean deleteBook(UUID id){
-        boolean exist = bookRepository.existsById(id);
 
-        if(!exist){
+        Book book = bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException("Book with current id is not found: ", id));
+
+        if(book==null){
             throw new BookNotFoundException("Book with current id is not found: ", id);
         }
 
-        bookRepository.deleteById(id);
+        bookRepository.deleteById(new BookId(book.getId(),book.getBookNo()));
 
         return true;
     }

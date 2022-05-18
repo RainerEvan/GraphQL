@@ -1,8 +1,12 @@
+scalar Date;
+scalar DateTime;
+
 type Book{
   id:ID!
   bookNo:String
   name:String
   author:Author
+  dateAdded:DateTime
 }
 
 type Author{
@@ -13,6 +17,7 @@ type Author{
 type Query {
   getAllBooks:[Book]!
   getAllAuthors:[Author]!
+  getBook(id:ID!):Book
 }
 
 type Mutation{

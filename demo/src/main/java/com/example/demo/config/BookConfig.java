@@ -1,5 +1,7 @@
 package com.example.demo.config;
 
+import java.time.OffsetDateTime;
+
 import com.example.demo.model.Author;
 import com.example.demo.model.Book;
 import com.example.demo.repository.AuthorRepository;
@@ -23,16 +25,19 @@ public class BookConfig {
             Book book = new Book();
             book.setName("Harry Potter and The Black Swan");
             book.setAuthor(author);
+            book.setDateAdded(OffsetDateTime.now());
             bookRepository.save(book);
 
             Book book2 = new Book();
             book2.setName("Hunger Games");
             book2.setAuthor(author);
+            book2.setDateAdded(OffsetDateTime.now());
             bookRepository.save(book2);
 
             Book book3 = new Book();
             book3.setName("Alvin and The Band");
             book3.setAuthor(author);
+            book3.setDateAdded(OffsetDateTime.now());
             bookRepository.save(book3);
         };
     }

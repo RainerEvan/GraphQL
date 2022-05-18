@@ -1,8 +1,10 @@
 package com.example.demo.graphql;
 
 import java.util.List;
+import java.util.UUID;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
+import com.example.demo.exception.BookNotFoundException;
 import com.example.demo.model.Author;
 import com.example.demo.model.Book;
 import com.example.demo.repository.AuthorRepository;
@@ -28,5 +30,16 @@ public class QueryResolver implements GraphQLQueryResolver{
 
     public List<Author> getAllAuthors(){
         return authorRepository.findAll();
+    }
+
+    public Book getBook(String id){
+
+        if(id.length()<36){
+            return bookRepository.findByBookNo(id).orElse(null);
+        }
+        else{
+            return bookRepository.findById(UUID.fromString(id)).orElseThrow(()->new BookNotFoundException("Book with current id is not found: ", UUID.fromString(id)));
+        }
+
     }
 }

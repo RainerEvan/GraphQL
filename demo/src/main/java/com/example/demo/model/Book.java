@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 import javax.persistence.Entity;
@@ -49,4 +50,6 @@ public class Book{
     @ManyToOne
     @JoinColumn(name = "author_id")
     private Author author;
+
+    private OffsetDateTime dateAdded;
 }
