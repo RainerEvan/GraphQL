@@ -4,7 +4,7 @@ import java.time.OffsetDateTime;
 import java.util.UUID;
 
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
-import com.example.demo.exception.BookNotFoundException;
+import com.example.demo.exception.AbstractGraphQLException;
 import com.example.demo.model.Author;
 import com.example.demo.model.Book;
 import com.example.demo.model.BookId;
@@ -28,14 +28,14 @@ public class MutationResolver implements GraphQLMutationResolver{
     public Book addBook(String name, UUID authorId){
         Book book = new Book();
         book.setName(name);
-        Author author = authorRepository.findById(authorId).orElseThrow(() -> new IllegalStateException("Author not found"));
+        Author author = authorRepository.findById(authorId).orElseThrow(() -> new AbstractGraphQLException("Author with current id not found"));
         book.setAuthor(author);
         book.setDateAdded(OffsetDateTime.now());
         return bookRepository.save(book);
     }
 
     public Book editBook(UUID id, String name){
-        Book book = bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException("Book with current id is not found: ", id));
+        Book book = bookRepository.findById(id).orElseThrow(() -> new AbstractGraphQLException("Book with current id not found"));
 
         if(book!=null && name!=null){
             book.setName(name);
@@ -46,10 +46,10 @@ public class MutationResolver implements GraphQLMutationResolver{
 
     public Boolean deleteBook(UUID id){
 
-        Book book = bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException("Book with current id is not found: ", id));
+        Book book = bookRepository.findById(id).orElseThrow(() -> new AbstractGraphQLException("Book with current id not found"));
 
         if(book==null){
-            throw new BookNotFoundException("Book with current id is not found: ", id);
+            throw new AbstractGraphQLException("Book with current id not found");
         }
 
         bookRepository.deleteById(new BookId(book.getId(),book.getBookNo()));
