@@ -38,7 +38,7 @@ public class QueryResolver implements GraphQLQueryResolver{
             return bookRepository.findByBookNo(id).orElse(null);
         }
         else{
-            return bookRepository.findById(UUID.fromString(id)).orElseThrow(()->new AbstractGraphQLException("Book with current id not found"));
+            return bookRepository.findById(UUID.fromString(id)).orElseThrow(()->new AbstractGraphQLException("Book with current id not found: "+id,"bookId"));
         }
 
     }

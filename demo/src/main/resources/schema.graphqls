@@ -5,6 +5,7 @@ type Book{
   id:ID!
   bookNo:String
   name:String
+  category:String
   author:Author
   dateAdded:DateTime
 }
@@ -21,7 +22,7 @@ type Query {
 }
 
 type Mutation{
-  addBook(name:String!,id:ID!):Book
+  addBook(name:String!,category:String,id:ID!):Book
   editBook(id:ID!,name:String!):Book
   deleteBook(id:ID!):Boolean
   addAuthor(name:String!):Author
