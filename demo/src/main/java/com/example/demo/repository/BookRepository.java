@@ -12,5 +12,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface BookRepository extends JpaRepository<Book,BookId>{
     Optional<Book> findById(UUID id);
     Optional<Book> findByBookNo(String bookNo);
-    void deleteById(UUID id);
 }

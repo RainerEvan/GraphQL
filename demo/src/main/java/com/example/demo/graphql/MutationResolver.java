@@ -49,10 +49,6 @@ public class MutationResolver implements GraphQLMutationResolver{
 
         Book book = bookRepository.findById(id).orElseThrow(() -> new AbstractGraphQLException("Book with current id not found"));
 
-        if(book==null){
-            throw new AbstractGraphQLException("Book with current id not found");
-        }
-
         bookRepository.deleteById(new BookId(book.getId(),book.getBookNo()));
 
         return true;
