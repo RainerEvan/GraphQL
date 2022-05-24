@@ -7,8 +7,11 @@ import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import com.example.demo.exception.AbstractGraphQLException;
 import com.example.demo.model.Author;
 import com.example.demo.model.Book;
+import com.example.demo.model.ERole;
+import com.example.demo.model.Role;
 import com.example.demo.repository.AuthorRepository;
 import com.example.demo.repository.BookRepository;
+import com.example.demo.repository.RoleRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,6 +26,8 @@ public class QueryResolver implements GraphQLQueryResolver{
     private final BookRepository bookRepository;
     @Autowired
     private final AuthorRepository authorRepository;
+    @Autowired
+    private final RoleRepository roleRepository;
 
     public List<Book> getAllBooks(){
         return bookRepository.findAll();
@@ -41,5 +46,20 @@ public class QueryResolver implements GraphQLQueryResolver{
             return bookRepository.findById(UUID.fromString(id)).orElseThrow(()->new AbstractGraphQLException("Book with current id not found: "+id,"bookId"));
         }
 
+    }
+
+    public List<Book> getAllBooksForAuthor(UUID authorId){
+        
+        Author author = authorRepository.findById(authorId).orElseThrow(()->new AbstractGraphQLException("Author with current id not found: "+authorId,"authorId"));
+        
+        return bookRepository.findAllByAuthorAndIsActive(author, true);
+    }
+
+    public List<Role> getAllRole(){
+        return roleRepository.findAll();
+    }
+
+    public Role getRole(ERole name){
+        return roleRepository.findByName(name).orElseThrow(()->new AbstractGraphQLException("Role with current name not found: "+name,"roleName"));
     }
 }

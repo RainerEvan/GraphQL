@@ -5,7 +5,7 @@ type Book{
   id:ID!
   bookNo:String
   name:String
-  category:String
+  isActive:Boolean
   author:Author
   dateAdded:DateTime
 }
@@ -15,10 +15,24 @@ type Author{
   name:String
 }
 
+type Role{
+  id:ID!
+  name:RoleName
+}
+
+enum RoleName{
+  ADMIN
+  USER
+  DEVELOPER
+}
+
 type Query {
   getAllBooks:[Book]!
   getAllAuthors:[Author]!
   getBook(id:ID!):Book
+  getAllBooksForAuthor(id:ID!):[Book]
+  getAllRole:[Role]
+  getRole(name:RoleName!):Role
 }
 
 type Mutation{

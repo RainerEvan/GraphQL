@@ -28,7 +28,6 @@ public class MutationResolver implements GraphQLMutationResolver{
     public Book addBook(String name, String category,UUID authorId){
         Book book = new Book();
         book.setName(name);
-        book.setCategory(category);
         Author author = authorRepository.findById(authorId).orElseThrow(() -> new AbstractGraphQLException("Author with current id not found"));
         book.setAuthor(author);
         book.setDateAdded(OffsetDateTime.now());

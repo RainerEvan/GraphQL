@@ -51,7 +51,7 @@ public class Book{
     @JoinColumn(name = "author_id")
     private Author author;
 
-    private String category;
+    private Boolean isActive;
 
     private OffsetDateTime dateAdded;
 }
