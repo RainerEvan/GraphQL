@@ -3,6 +3,7 @@ package com.example.demo.model;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,7 +33,8 @@ public class Book{
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    private UUID id;
+    @Column(name = "book_id")
+    private UUID bookId;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "book_seq")
@@ -43,6 +45,7 @@ public class Book{
             @Parameter(name = BookNoGenerator.INCREMENT_PARAM, value = "1")
         }
     )
+    @Column(name = "book_no")
     private String bookNo;
 
     private String name;

@@ -7,7 +7,6 @@ import com.coxautodev.graphql.tools.GraphQLMutationResolver;
 import com.example.demo.exception.AbstractGraphQLException;
 import com.example.demo.model.Author;
 import com.example.demo.model.Book;
-import com.example.demo.model.BookId;
 import com.example.demo.repository.AuthorRepository;
 import com.example.demo.repository.BookRepository;
 
@@ -35,7 +34,7 @@ public class MutationResolver implements GraphQLMutationResolver{
     }
 
     public Book editBook(UUID id, String name){
-        Book book = bookRepository.findById(id).orElseThrow(() -> new AbstractGraphQLException("Book with current id not found"));
+        Book book = bookRepository.findByBookId(id).orElseThrow(() -> new AbstractGraphQLException("Book with current id not found"));
 
         if(book!=null && name!=null){
             book.setName(name);
@@ -46,9 +45,9 @@ public class MutationResolver implements GraphQLMutationResolver{
 
     public Boolean deleteBook(UUID id){
 
-        Book book = bookRepository.findById(id).orElseThrow(() -> new AbstractGraphQLException("Book with current id not found"));
+        Book book = bookRepository.findByBookId(id).orElseThrow(() -> new AbstractGraphQLException("Book with current id not found"));
 
-        bookRepository.deleteById(new BookId(book.getId(),book.getBookNo()));
+        bookRepository.delete(book);
 
         return true;
     }

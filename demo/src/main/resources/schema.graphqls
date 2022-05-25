@@ -2,7 +2,7 @@ scalar Date;
 scalar DateTime;
 
 type Book{
-  id:ID!
+  bookId:ID!
   bookNo:String
   name:String
   isActive:Boolean

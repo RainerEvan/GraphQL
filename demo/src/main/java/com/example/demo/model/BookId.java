@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode
 public class BookId implements Serializable{
     
-    private UUID id;
+    private UUID bookId;
     private String bookNo;
 
     
