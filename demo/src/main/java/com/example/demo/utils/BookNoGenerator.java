@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Properties;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.hibernate.HibernateException;
 import org.hibernate.MappingException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
@@ -19,7 +20,7 @@ public class BookNoGenerator extends SequenceStyleGenerator {
     public static final String DATE_FORMAT_DEFAULT = "T%ty%tm%td";
      
     public static final String NUMBER_FORMAT_PARAMETER = "numberFormat";
-    public static final String NUMBER_FORMAT_DEFAULT = "%03d";
+    public static final String NUMBER_FORMAT_DEFAULT = "%s";
      
     public static final String DATE_NUMBER_SEPARATOR_PARAMETER = "dateNumberSeparator";
     public static final String DATE_NUMBER_SEPARATOR_DEFAULT = "-";
@@ -38,8 +39,11 @@ public class BookNoGenerator extends SequenceStyleGenerator {
      
     @Override
     public Serializable generate(SharedSessionContractImplementor session, Object object) throws HibernateException {
+
+        super.generate(session, object);
+        String random = RandomStringUtils.randomAlphabetic(4);
             
-        return String.format(format, LocalDate.now(), LocalDate.now(), LocalDate.now(), super.generate(session, object));
+        return String.format(format, LocalDate.now(), LocalDate.now(), LocalDate.now(), random);
     }
 
 }
