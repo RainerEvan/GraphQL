@@ -9,9 +9,13 @@ import com.example.demo.model.Author;
 import com.example.demo.model.Book;
 import com.example.demo.model.ERole;
 import com.example.demo.model.Role;
+import com.example.demo.model.Support;
+import com.example.demo.model.Ticket;
 import com.example.demo.repository.AuthorRepository;
 import com.example.demo.repository.BookRepository;
 import com.example.demo.repository.RoleRepository;
+import com.example.demo.service.SupportService;
+import com.example.demo.service.TicketService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -61,5 +65,27 @@ public class QueryResolver implements GraphQLQueryResolver{
 
     public Role getRole(ERole name){
         return roleRepository.findByName(name).orElseThrow(()->new AbstractGraphQLException("Role with current name not found: "+name,"roleName"));
+    }
+
+    @Autowired
+    private final TicketService ticketService;
+
+    public List<Ticket> getAllTickets(){
+        return ticketService.getAllTickets();
+    }
+
+    public Ticket getTicket(UUID ticketId){
+        return ticketService.getTicket(ticketId);
+    }
+
+    public List<Ticket> getAllTicketsForUser(UUID authorId){
+        return ticketService.getAllTicketsForUser(authorId);
+    }
+
+    @Autowired
+    private final SupportService supportService;
+
+    public List<Support> getAllSupportsForDeveloper(UUID accountId){
+        return supportService.getAllSupportsForDeveloper(accountId);
     }
 }

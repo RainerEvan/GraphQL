@@ -26,6 +26,41 @@ enum RoleName{
   DEVELOPER
 }
 
+type Status{
+    id:ID!
+    name:EStatus
+}
+
+enum EStatus{
+    PENDING
+    IN_PROGRESS
+    RESOLVED
+    CLOSED
+    DROPPED
+}
+
+type Ticket{
+    ticketId:ID
+    ticketNo:String
+    dateAdded:Date
+    reporter:Author
+    title:String
+    description:String
+    dateClosed:Date
+    status:Status
+    support:[Support]
+}
+
+type Support{
+    id:ID
+    ticket:Ticket
+    dateTaken:DateTime
+    developer:Author
+    result:String
+    description:String
+    isActive:Boolean
+}
+
 type Query {
   getAllBooks:[Book]!
   getAllAuthors:[Author]!
@@ -33,6 +68,12 @@ type Query {
   getAllBooksForAuthor(id:ID!):[Book]
   getAllRole:[Role]
   getRole(name:RoleName!):Role
+
+  getAllSupportsForDeveloper(authorId:ID!):[Support]
+
+  getAllTickets:[Ticket]
+  getTicket(ticketId:ID!):Ticket
+  getAllTicketsForUser(authorId:ID!):[Ticket]
 }
 
 type Mutation{
