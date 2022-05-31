@@ -3,6 +3,7 @@ package com.example.demo.graphql;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
+
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
 import com.example.demo.exception.AbstractGraphQLException;
 import com.example.demo.model.Author;
@@ -24,7 +25,7 @@ public class MutationResolver implements GraphQLMutationResolver{
     @Autowired
     private final AuthorRepository authorRepository;
 
-    public Book addBook(String name, String category,UUID authorId){
+    public Book addBook(String name,UUID authorId){
         Book book = new Book();
         book.setName(name);
         Author author = authorRepository.findById(authorId).orElseThrow(() -> new AbstractGraphQLException("Author with current id not found"));
@@ -57,4 +58,5 @@ public class MutationResolver implements GraphQLMutationResolver{
         author.setName(name);
         return authorRepository.save(author);
     }
+
 }
