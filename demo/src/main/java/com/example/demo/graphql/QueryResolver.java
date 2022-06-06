@@ -11,9 +11,11 @@ import com.example.demo.model.ERole;
 import com.example.demo.model.Role;
 import com.example.demo.model.Support;
 import com.example.demo.model.Ticket;
+import com.example.demo.model.TicketAttachment;
 import com.example.demo.repository.AuthorRepository;
 import com.example.demo.repository.BookRepository;
 import com.example.demo.repository.RoleRepository;
+import com.example.demo.repository.TicketAttachmentRepository;
 import com.example.demo.service.SupportService;
 import com.example.demo.service.TicketService;
 
@@ -32,6 +34,8 @@ public class QueryResolver implements GraphQLQueryResolver{
     private final AuthorRepository authorRepository;
     @Autowired
     private final RoleRepository roleRepository;
+    @Autowired
+    private final TicketAttachmentRepository ticketAttachmentRepository;
 
     public List<Book> getAllBooks(){
         return bookRepository.findAll();
@@ -87,5 +91,9 @@ public class QueryResolver implements GraphQLQueryResolver{
 
     public List<Support> getAllSupportsForDeveloper(UUID accountId){
         return supportService.getAllSupportsForDeveloper(accountId);
+    }
+
+    public List<TicketAttachment> getAllTicketAttachment(){
+        return ticketAttachmentRepository.findAll();
     }
 }

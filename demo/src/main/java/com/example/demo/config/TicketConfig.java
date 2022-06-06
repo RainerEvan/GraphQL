@@ -26,25 +26,25 @@ public class TicketConfig {
             author.setName("Maman");
             authorRepository.save(author);
 
-            // Status status1 = new Status();
-            // status1.setName(EStatus.PENDING);
-            // statusRepository.save(status1);
+            Status status1 = new Status();
+            status1.setName(EStatus.PENDING);
+            statusRepository.save(status1);
 
-            // Status status2 = new Status();
-            // status2.setName(EStatus.IN_PROGRESS);
-            // statusRepository.save(status2);
+            Status status2 = new Status();
+            status2.setName(EStatus.IN_PROGRESS);
+            statusRepository.save(status2);
 
-            // Status status3 = new Status();
-            // status3.setName(EStatus.RESOLVED);
-            // statusRepository.save(status3);
+            Status status3 = new Status();
+            status3.setName(EStatus.RESOLVED);
+            statusRepository.save(status3);
 
-            // Status status4 = new Status();
-            // status4.setName(EStatus.CLOSED);
-            // statusRepository.save(status4);
+            Status status4 = new Status();
+            status4.setName(EStatus.CLOSED);
+            statusRepository.save(status4);
 
-            // Status status5 = new Status();
-            // status5.setName(EStatus.DROPPED);
-            // statusRepository.save(status5);
+            Status status5 = new Status();
+            status5.setName(EStatus.DROPPED);
+            statusRepository.save(status5);
            
             // Ticket ticket = new Ticket();
             // ticket.setDateAdded(LocalDate.now());

@@ -62,6 +62,12 @@ type Support{
     isActive:Boolean
 }
 
+type TicketAttachment{
+  id:ID
+  ticket:Ticket
+  name:String
+}
+
 type Query {
   getAllBooks:[Book]!
   getAllAuthors:[Author]!
@@ -75,6 +81,8 @@ type Query {
   getAllTickets:[Ticket]
   getTicket(ticketId:ID!):Ticket
   getAllTicketsForUser(authorId:ID!):[Ticket]
+
+  getAllTicketAttachment:[TicketAttachment]
 }
 
 type Mutation{

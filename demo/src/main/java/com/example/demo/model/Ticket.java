@@ -21,14 +21,16 @@ import org.hibernate.annotations.Parameter;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@EqualsAndHashCode(callSuper = false)
 @IdClass(TicketPK.class)
-public class Ticket {
+public class Ticket extends TicketLog<String>{
 
     @Id
     @GeneratedValue(generator = "UUID")

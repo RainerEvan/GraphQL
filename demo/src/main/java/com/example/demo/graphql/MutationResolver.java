@@ -58,5 +58,4 @@ public class MutationResolver implements GraphQLMutationResolver{
         author.setName(name);
         return authorRepository.save(author);
     }
-
 }
